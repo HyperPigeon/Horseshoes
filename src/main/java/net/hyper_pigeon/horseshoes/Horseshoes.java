@@ -2,6 +2,7 @@ package net.hyper_pigeon.horseshoes;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.hyper_pigeon.horseshoes.items.HorseshoesItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -11,6 +12,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOffers;
+import net.minecraft.village.VillagerProfession;
 
 public class Horseshoes implements ModInitializer {
 
@@ -45,5 +49,12 @@ public class Horseshoes implements ModInitializer {
         ItemGroupEvents
                 .modifyEntriesEvent(ItemGroups.COMBAT)
                 .register((itemGroup) -> itemGroup.add(Horseshoes.IRON_HORSESHOES_ITEM));
+
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER,
+                2,
+                factories -> factories.add(new TradeOffers.SellItemFactory(IRON_HORSESHOES_ITEM, 8, 1, 15)));
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER,
+                5,
+                factories -> factories.add(new TradeOffers.SellItemFactory(DIAMOND_HORSESHOES_ITEM, 32, 1, 30)));
     }
 }
