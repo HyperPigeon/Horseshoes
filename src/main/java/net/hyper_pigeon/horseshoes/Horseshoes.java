@@ -2,11 +2,15 @@ package net.hyper_pigeon.horseshoes;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.hyper_pigeon.horseshoes.items.HorseshoesItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.*;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
@@ -32,6 +36,9 @@ public class Horseshoes implements ModInitializer {
     public static final HorseshoesItem IRON_HORSESHOES_ITEM = new HorseshoesItem(ArmorMaterials.IRON, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1));
     public static final HorseshoesItem GOLD_HORSESHOES_ITEM = new HorseshoesItem(ArmorMaterials.GOLD, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1));
 
+    public static final Identifier NETHER_BRIDGE_LOOT_TABLE = Identifier.of("minecraft","loot_tables/chests/nether_bridge");
+    public static final Identifier BASTION_LOOT_TABLE = Identifier.of("minecraft","loot_tables/chests/loot_bastion");
+
     @Override
     public void onInitialize() {
         Registry.register(Registries.ITEM,new Identifier("horseshoes", "diamond_horseshoes"), DIAMOND_HORSESHOES_ITEM);
@@ -56,5 +63,24 @@ public class Horseshoes implements ModInitializer {
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER,
                 5,
                 factories -> factories.add(new TradeOffers.SellItemFactory(DIAMOND_HORSESHOES_ITEM, 32, 1, 30)));
+
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (source.isBuiltin() && NETHER_BRIDGE_LOOT_TABLE.equals(id)) {
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .rolls(UniformLootNumberProvider.create(1.0F, 2.0F)).
+                        with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(8));
+
+                tableBuilder.pool(poolBuilder);
+            }
+
+            if (source.isBuiltin() && BASTION_LOOT_TABLE.equals(id)) {
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .rolls(UniformLootNumberProvider.create(3.0F, 4.0F)).
+                        with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(12));
+                tableBuilder.pool(poolBuilder);
+            }
+        });
+
+
     }
 }
