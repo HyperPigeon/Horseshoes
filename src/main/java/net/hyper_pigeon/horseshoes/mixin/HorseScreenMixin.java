@@ -36,7 +36,6 @@ public abstract class HorseScreenMixin extends HandledScreen {
 
         if(this.entity.getType().isIn(Horseshoes.ALLOWED)) {
 //            context.drawTexture(TEXTURE, i + 7, j + 53, 0, this.backgroundHeight + 54, 18, 18);
-//            context.drawTexture(TEXTURE, i + 7, j + 53, 0, this.backgroundHeight + 54, 18, 18);
               context.drawTexture(TEXTURE, i + 7, j + 53, 54, this.backgroundHeight + 54, 18, 18);
         }
 

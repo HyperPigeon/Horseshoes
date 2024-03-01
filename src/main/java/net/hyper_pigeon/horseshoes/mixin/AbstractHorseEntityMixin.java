@@ -5,12 +5,12 @@ import net.hyper_pigeon.horseshoes.items.HorseshoesItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
@@ -28,36 +28,21 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
     @Shadow
     protected SimpleInventory items;
 
+    @Shadow public abstract boolean hasArmorSlot();
+
     protected AbstractHorseEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
 
     public boolean hasHorseshoes() {
-        return !items.isEmpty() && (items.getStack(2).getItem() instanceof HorseshoesItem);
+        return !items.isEmpty() && (items.getStack(getHorseshoesSlot()).getItem() instanceof HorseshoesItem);
     }
 
-    private void addHorseshoeBoost(EntityAttributeInstance entityAttributeInstance, HorseshoesItem horseshoesItem){
-        if(horseshoesItem.equals(Horseshoes.IRON_HORSESHOES_ITEM) && !entityAttributeInstance.hasModifier(Horseshoes.IRON_HORSESHOE_BOOST)){
-            entityAttributeInstance.addTemporaryModifier(Horseshoes.IRON_HORSESHOE_BOOST);
+    public int getHorseshoesSlot(){
+        if (hasArmorSlot()) {
+            return 2;
         }
-        else if(horseshoesItem.equals(Horseshoes.DIAMOND_HORSESHOES_ITEM) && !entityAttributeInstance.hasModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST)){
-            entityAttributeInstance.addTemporaryModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST);
-        }
-        else if(horseshoesItem.equals(Horseshoes.GOLD_HORSESHOES_ITEM) && !entityAttributeInstance.hasModifier(Horseshoes.GOLD_HORSESHOE_BOOST)){
-            entityAttributeInstance.addTemporaryModifier(Horseshoes.GOLD_HORSESHOE_BOOST);
-        }
-    }
-
-    private void removeHorseshoeBoost(EntityAttributeInstance entityAttributeInstance){
-        if(entityAttributeInstance.hasModifier(Horseshoes.IRON_HORSESHOE_BOOST)){
-            entityAttributeInstance.removeModifier(Horseshoes.IRON_HORSESHOE_BOOST);
-        }
-        else if(entityAttributeInstance.hasModifier(Horseshoes.GOLD_HORSESHOE_BOOST)){
-            entityAttributeInstance.removeModifier(Horseshoes.GOLD_HORSESHOE_BOOST);
-        }
-        else if(entityAttributeInstance.hasModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST)){
-            entityAttributeInstance.removeModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST);
-        }
+        return 1;
     }
 
 
@@ -65,14 +50,22 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
     @Inject(method = "onInventoryChanged", at = @At("TAIL"))
     public void onInventoryChanged(Inventory sender, CallbackInfo ci) {
         boolean bl = this.hasHorseshoes();
-        EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-
+        EntityAttributeInstance entitySpeedAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        EntityAttributeInstance entityArmorAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR);
         if(!this.getWorld().isClient()) {
-            assert entityAttributeInstance != null;
-            removeHorseshoeBoost(entityAttributeInstance);
+            assert entitySpeedAttributeInstance != null;
+            entitySpeedAttributeInstance.removeModifier(Horseshoes.HORSESHOE_BOOST_UUID);
+            assert entityArmorAttributeInstance != null;
+            entityArmorAttributeInstance.removeModifier(Horseshoes.HORSESHOE_ARMOR_BONUS_UUID);
             if(this.hasHorseshoes()) {
-                this.equipStack(EquipmentSlot.FEET, sender.getStack(2));
-                addHorseshoeBoost(entityAttributeInstance, (HorseshoesItem) items.getStack(2).getItem());
+                  int slot = getHorseshoesSlot();
+                  ItemStack stack= items.getStack(slot);
+                  this.equipStack(EquipmentSlot.FEET, stack);
+                  this.setEquipmentDropChance(EquipmentSlot.FEET, 0.0F);
+                  float speedBonus = ((HorseshoesItem)(stack.getItem())).getSpeedBonus();
+                  float armorBonus = ((HorseshoesItem)(stack.getItem())).getArmorBonus();
+                  entitySpeedAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_BOOST_UUID,"Horseshoes speed bonus", speedBonus, EntityAttributeModifier.Operation.ADDITION));
+                  entityArmorAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_ARMOR_BONUS_UUID,"Horse armor bonus", armorBonus, EntityAttributeModifier.Operation.ADDITION));
                 if (this.age > 20 && !bl) {
                     this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
                 }

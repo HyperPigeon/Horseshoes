@@ -25,7 +25,8 @@ public abstract class HorseScreenHandlerMixin extends ScreenHandler {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void addHorseshoeSlot(int syncId, PlayerInventory playerInventory, Inventory inventory, AbstractHorseEntity entity, CallbackInfo ci){
-        this.addSlot(new Slot(inventory, 2, 8, 54) {
+        int slot = entity.hasArmorSlot() ? 2 : 1;
+        this.addSlot(new Slot(inventory, slot, 8, 54) {
             public boolean canInsert(ItemStack stack) {
                 return stack.getItem() instanceof HorseshoesItem && !this.hasStack() && entity.getType().isIn(Horseshoes.ALLOWED);
             }

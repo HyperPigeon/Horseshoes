@@ -20,21 +20,25 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 
+import java.util.UUID;
+
 public class Horseshoes implements ModInitializer {
 
     private static final Identifier ALLOWED_ID = new Identifier("horseshoes:allowed_to_wear_horseshoes");
     public static final TagKey<EntityType<?>> ALLOWED = TagKey.of(RegistryKeys.ENTITY_TYPE, ALLOWED_ID);
 
-    public static final EntityAttributeModifier IRON_HORSESHOE_BOOST = new EntityAttributeModifier("IRON_HORSESHOE_BOOST",0.1,
-            EntityAttributeModifier.Operation.fromId(0));
-    public static final EntityAttributeModifier DIAMOND_HORSESHOE_BOOST = new EntityAttributeModifier("DIAMOND_HORSESHOE_BOOST",0.15,
-            EntityAttributeModifier.Operation.fromId(0));
-    public static final EntityAttributeModifier GOLD_HORSESHOE_BOOST = new EntityAttributeModifier("GOLD_HORSESHOE_BOOST",0.2,
-            EntityAttributeModifier.Operation.fromId(0));
+    public static final UUID HORSESHOE_BOOST_UUID = UUID.fromString("edde09bc-c052-43ed-b7ae-b6fa1bae989a");
+    public static final UUID HORSESHOE_ARMOR_BONUS_UUID = UUID.fromString("92a08c42-4405-497a-8fbf-736915bd665b");
+    //    public static final EntityAttributeModifier IRON_HORSESHOE_BOOST = new EntityAttributeModifier("IRON_HORSESHOE_BOOST",0.1,
+//            EntityAttributeModifier.Operation.fromId(0));
+//    public static final EntityAttributeModifier DIAMOND_HORSESHOE_BOOST = new EntityAttributeModifier("DIAMOND_HORSESHOE_BOOST",0.15,
+//            EntityAttributeModifier.Operation.fromId(0));
+//    public static final EntityAttributeModifier GOLD_HORSESHOE_BOOST = new EntityAttributeModifier("GOLD_HORSESHOE_BOOST",0.2,
+//            EntityAttributeModifier.Operation.fromId(0));
 
-    public static final HorseshoesItem DIAMOND_HORSESHOES_ITEM = new HorseshoesItem(new Item.Settings().maxCount(1));
-    public static final HorseshoesItem IRON_HORSESHOES_ITEM = new HorseshoesItem(new Item.Settings().maxCount(1));
-    public static final HorseshoesItem GOLD_HORSESHOES_ITEM = new HorseshoesItem(new Item.Settings().maxCount(1));
+    public static final HorseshoesItem DIAMOND_HORSESHOES_ITEM = new HorseshoesItem(0.15F, 5.5F, new Item.Settings().maxCount(1));
+    public static final HorseshoesItem IRON_HORSESHOES_ITEM = new HorseshoesItem(0.1F,3.5F,new Item.Settings().maxCount(1));
+    public static final HorseshoesItem GOLD_HORSESHOES_ITEM = new HorseshoesItem(0.2F, 2.5F, new Item.Settings().maxCount(1));
 
     public static final Identifier NETHER_BRIDGE_LOOT_TABLE = Identifier.of("minecraft","loot_tables/chests/nether_bridge");
     public static final Identifier BASTION_LOOT_TABLE = Identifier.of("minecraft","loot_tables/chests/loot_bastion");
