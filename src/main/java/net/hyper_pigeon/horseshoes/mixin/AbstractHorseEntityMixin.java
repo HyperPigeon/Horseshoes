@@ -37,13 +37,13 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
     }
 
     private void addHorseshoeBoost(EntityAttributeInstance entityAttributeInstance, HorseshoesItem horseshoesItem){
-        if(horseshoesItem.getMaterial().equals(ArmorMaterials.IRON) && !entityAttributeInstance.hasModifier(Horseshoes.IRON_HORSESHOE_BOOST)){
+        if(horseshoesItem.equals(Horseshoes.IRON_HORSESHOES_ITEM) && !entityAttributeInstance.hasModifier(Horseshoes.IRON_HORSESHOE_BOOST)){
             entityAttributeInstance.addTemporaryModifier(Horseshoes.IRON_HORSESHOE_BOOST);
         }
-        else if(horseshoesItem.getMaterial().equals(ArmorMaterials.DIAMOND) && !entityAttributeInstance.hasModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST)){
+        else if(horseshoesItem.equals(Horseshoes.DIAMOND_HORSESHOES_ITEM) && !entityAttributeInstance.hasModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST)){
             entityAttributeInstance.addTemporaryModifier(Horseshoes.DIAMOND_HORSESHOE_BOOST);
         }
-        else if(horseshoesItem.getMaterial().equals(ArmorMaterials.GOLD) && !entityAttributeInstance.hasModifier(Horseshoes.GOLD_HORSESHOE_BOOST)){
+        else if(horseshoesItem.equals(Horseshoes.GOLD_HORSESHOES_ITEM) && !entityAttributeInstance.hasModifier(Horseshoes.GOLD_HORSESHOE_BOOST)){
             entityAttributeInstance.addTemporaryModifier(Horseshoes.GOLD_HORSESHOE_BOOST);
         }
     }
@@ -66,15 +66,17 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
     public void onInventoryChanged(Inventory sender, CallbackInfo ci) {
         boolean bl = this.hasHorseshoes();
         EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        if(this.hasHorseshoes()) {
-            this.equipStack(EquipmentSlot.FEET, sender.getStack(2));
-            addHorseshoeBoost(entityAttributeInstance, (HorseshoesItem) items.getStack(2).getItem());
-            if (this.age > 20 && !bl) {
-                this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
-            }
-        }
-        else {
+
+        if(!this.getWorld().isClient()) {
+            assert entityAttributeInstance != null;
             removeHorseshoeBoost(entityAttributeInstance);
+            if(this.hasHorseshoes()) {
+                this.equipStack(EquipmentSlot.FEET, sender.getStack(2));
+                addHorseshoeBoost(entityAttributeInstance, (HorseshoesItem) items.getStack(2).getItem());
+                if (this.age > 20 && !bl) {
+                    this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
+                }
+            }
         }
 
     }

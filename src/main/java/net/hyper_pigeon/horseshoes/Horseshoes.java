@@ -32,9 +32,9 @@ public class Horseshoes implements ModInitializer {
     public static final EntityAttributeModifier GOLD_HORSESHOE_BOOST = new EntityAttributeModifier("GOLD_HORSESHOE_BOOST",0.2,
             EntityAttributeModifier.Operation.fromId(0));
 
-    public static final HorseshoesItem DIAMOND_HORSESHOES_ITEM = new HorseshoesItem(ArmorMaterials.DIAMOND, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1));
-    public static final HorseshoesItem IRON_HORSESHOES_ITEM = new HorseshoesItem(ArmorMaterials.IRON, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1));
-    public static final HorseshoesItem GOLD_HORSESHOES_ITEM = new HorseshoesItem(ArmorMaterials.GOLD, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1));
+    public static final HorseshoesItem DIAMOND_HORSESHOES_ITEM = new HorseshoesItem(new Item.Settings().maxCount(1));
+    public static final HorseshoesItem IRON_HORSESHOES_ITEM = new HorseshoesItem(new Item.Settings().maxCount(1));
+    public static final HorseshoesItem GOLD_HORSESHOES_ITEM = new HorseshoesItem(new Item.Settings().maxCount(1));
 
     public static final Identifier NETHER_BRIDGE_LOOT_TABLE = Identifier.of("minecraft","loot_tables/chests/nether_bridge");
     public static final Identifier BASTION_LOOT_TABLE = Identifier.of("minecraft","loot_tables/chests/loot_bastion");
