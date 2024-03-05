@@ -88,15 +88,15 @@ public class Horseshoes implements ModInitializer {
                 if(LootTables.VILLAGE_ARMORER_CHEST.equals(id) || LootTables.VILLAGE_WEAPONSMITH_CHEST.equals(id) || LootTables.VILLAGE_TOOLSMITH_CHEST.equals(id)) {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
-                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(10));
+                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(8));
                     tableBuilder.pool(poolBuilder);
                 }
                 if(LootTables.DESERT_PYRAMID_CHEST.equals(id)){
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
                             .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(8))
-                            .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(4))
-                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(2));
+                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(4))
+                            .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(1));
                     tableBuilder.pool(poolBuilder);
                 }
 
@@ -104,7 +104,6 @@ public class Horseshoes implements ModInitializer {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1.0F))
                             .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(4))
-                            .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(2))
                             .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(1));
                     tableBuilder.pool(poolBuilder);
                 }
@@ -115,6 +114,21 @@ public class Horseshoes implements ModInitializer {
                             .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM))
                             .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM))
                             .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM));
+                    tableBuilder.pool(poolBuilder);
+                }
+
+                if(LootTables.ANCIENT_CITY_CHEST.equals(id)){
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(ConstantLootNumberProvider.create(1.0F))
+                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(8));
+                    tableBuilder.pool(poolBuilder);
+                }
+
+                if(LootTables.WOODLAND_MANSION_CHEST.equals(id)){
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(ConstantLootNumberProvider.create(1.0F))
+                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(8))
+                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(4));
                     tableBuilder.pool(poolBuilder);
                 }
 
