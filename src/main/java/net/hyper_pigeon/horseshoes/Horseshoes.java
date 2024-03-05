@@ -13,6 +13,7 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -71,27 +72,54 @@ public class Horseshoes implements ModInitializer {
                 factories -> factories.add(new TradeOffers.SellItemFactory(DIAMOND_HORSESHOES_ITEM, 32, 1, 30)));
 
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (source.isBuiltin() && LootTables.NETHER_BRIDGE_CHEST.equals(id)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(1.0F, 2.0F)).
-                        with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(8));
+            if (source.isBuiltin()) {
+                if(LootTables.NETHER_BRIDGE_CHEST.equals(id)) {
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(UniformLootNumberProvider.create(1.0F, 2.0F)).
+                            with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(4));
+                    tableBuilder.pool(poolBuilder);
+                }
+                if(LootTables.BASTION_BRIDGE_CHEST.equals(id) || LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(id) || LootTables.BASTION_OTHER_CHEST.equals(id) || LootTables.BASTION_TREASURE_CHEST.equals(id)) {
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(UniformLootNumberProvider.create(2.0F, 3.0F)).
+                            with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(8));
+                    tableBuilder.pool(poolBuilder);
+                }
+                if(LootTables.VILLAGE_ARMORER_CHEST.equals(id) || LootTables.VILLAGE_WEAPONSMITH_CHEST.equals(id) || LootTables.VILLAGE_TOOLSMITH_CHEST.equals(id)) {
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
+                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(10));
+                    tableBuilder.pool(poolBuilder);
+                }
+                if(LootTables.DESERT_PYRAMID_CHEST.equals(id)){
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
+                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(8))
+                            .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(4))
+                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(2));
+                    tableBuilder.pool(poolBuilder);
+                }
 
-                tableBuilder.pool(poolBuilder);
+                if(LootTables.SIMPLE_DUNGEON_CHEST.equals(id)){
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(ConstantLootNumberProvider.create(1.0F))
+                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(4))
+                            .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(2))
+                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM).weight(1));
+                    tableBuilder.pool(poolBuilder);
+                }
+
+                if(LootTables.END_CITY_TREASURE_CHEST.equals(id)){
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
+                            .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM))
+                            .with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM))
+                            .with(ItemEntry.builder(Horseshoes.DIAMOND_HORSESHOES_ITEM));
+                    tableBuilder.pool(poolBuilder);
+                }
+
             }
 
-            if (source.isBuiltin() && (LootTables.BASTION_BRIDGE_CHEST.equals(id) || LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(id) || LootTables.BASTION_OTHER_CHEST.equals(id) || LootTables.BASTION_TREASURE_CHEST.equals(id))) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(2.0F, 3.0F)).
-                        with(ItemEntry.builder(Horseshoes.GOLD_HORSESHOES_ITEM).weight(8));
-                tableBuilder.pool(poolBuilder);
-            }
-
-            if(source.isBuiltin() && (LootTables.VILLAGE_ARMORER_CHEST.equals(id) || LootTables.VILLAGE_WEAPONSMITH_CHEST.equals(id) || LootTables.VILLAGE_TOOLSMITH_CHEST.equals(id))) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
-                        .with(ItemEntry.builder(Horseshoes.IRON_HORSESHOES_ITEM).weight(8));
-                tableBuilder.pool(poolBuilder);
-            }
         });
 
 
