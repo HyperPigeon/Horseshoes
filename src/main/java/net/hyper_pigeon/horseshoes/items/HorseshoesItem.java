@@ -1,22 +1,24 @@
 package net.hyper_pigeon.horseshoes.items;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class HorseshoesItem extends ArmorItem {
+public class HorseshoesItem extends Item {
 
     private float speedBonus;
     private float armorBonus;
+    private final Identifier entityTexture;
 
-    public HorseshoesItem(float speedBonus, float armorBonus, ArmorMaterial material, Settings settings) {
-        super(material, Type.BOOTS, settings);
+    public HorseshoesItem(float speedBonus, float armorBonus, Settings settings, Identifier entityTexture) {
+        super(settings);
         this.speedBonus = speedBonus;
         this.armorBonus = armorBonus;
+        this.entityTexture = entityTexture;
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -31,5 +33,7 @@ public class HorseshoesItem extends ArmorItem {
     public float getArmorBonus(){
         return armorBonus;
     }
+
+    public Identifier getEntityTexture(){return entityTexture;}
 
 }
