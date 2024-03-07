@@ -133,7 +133,5 @@ public class Horseshoes implements ModInitializer {
             }
 
         });
-
-
     }
 }

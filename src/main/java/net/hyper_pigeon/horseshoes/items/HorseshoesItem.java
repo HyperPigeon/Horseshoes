@@ -36,4 +36,5 @@ public class HorseshoesItem extends Item {
 
     public Identifier getEntityTexture(){return entityTexture;}
 
+
 }
