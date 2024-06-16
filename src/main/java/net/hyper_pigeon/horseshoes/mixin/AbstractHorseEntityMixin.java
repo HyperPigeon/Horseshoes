@@ -13,6 +13,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,8 +28,6 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
 
     @Shadow
     protected SimpleInventory items;
-
-    @Shadow public abstract boolean hasArmorSlot();
 
     protected AbstractHorseEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -64,8 +63,8 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
                   this.setEquipmentDropChance(EquipmentSlot.FEET, 0.0F);
                   float speedBonus = ((HorseshoesItem)(stack.getItem())).getSpeedBonus();
                   float armorBonus = ((HorseshoesItem)(stack.getItem())).getArmorBonus();
-                  entitySpeedAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_BOOST_UUID,"Horseshoes speed bonus", speedBonus, EntityAttributeModifier.Operation.ADDITION));
-                  entityArmorAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_ARMOR_BONUS_UUID,"Horse armor bonus", armorBonus, EntityAttributeModifier.Operation.ADDITION));
+                  entitySpeedAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_BOOST_UUID,"Horseshoes speed bonus", speedBonus, EntityAttributeModifier.Operation.ADD_VALUE));
+                  entityArmorAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_ARMOR_BONUS_UUID,"Horse armor bonus", armorBonus, EntityAttributeModifier.Operation.ADD_VALUE));
                 if (this.age > 20 && !bl) {
                     this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
                 }
@@ -86,14 +85,14 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     protected void writeHorseshoesToNbt(NbtCompound nbt, CallbackInfo ci){
         if (this.hasHorseshoes() && !this.items.getStack(2).isEmpty()) {
-            nbt.put("HorseshoesItem", this.items.getStack(2).writeNbt(new NbtCompound()));
+            nbt.put("HorseshoesItem", ItemStack.CODEC.encodeStart(NbtOps.INSTANCE,this.items.getStack(2)).getPartialOrThrow());
         }
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     protected void readHorseshoesFromNbt(NbtCompound nbt, CallbackInfo ci){
         if (nbt.contains("HorseshoesItem", 10)) {
-            ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("HorseshoesItem"));
+            ItemStack itemStack = ItemStack.CODEC.parse(NbtOps.INSTANCE, nbt.getCompound("HorseshoesItem")).getPartialOrThrow();
             if (itemStack.getItem() instanceof HorseshoesItem) {
                 this.items.setStack(2, itemStack);
             }
