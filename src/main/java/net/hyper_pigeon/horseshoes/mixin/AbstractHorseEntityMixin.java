@@ -35,7 +35,7 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
     }
 
     public boolean hasHorseshoes() {
-        return !items.isEmpty() && (items.getStack(getHorseshoesSlot()).getItem() instanceof HorseshoesItem);
+        return !items.isEmpty() && !this.items.getStack(getHorseshoesSlot()).isEmpty() && (items.getStack(getHorseshoesSlot()).getItem() instanceof HorseshoesItem);
     }
 
     public int getHorseshoesSlot(){
@@ -85,8 +85,8 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     protected void writeHorseshoesToNbt(NbtCompound nbt, CallbackInfo ci){
-        if (this.hasHorseshoes() && !this.items.getStack(2).isEmpty()) {
-            nbt.put("HorseshoesItem", this.items.getStack(2).writeNbt(new NbtCompound()));
+        if (this.hasHorseshoes()) {
+            nbt.put("HorseshoesItem", this.items.getStack(getHorseshoesSlot()).writeNbt(new NbtCompound()));
         }
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity {
         if (nbt.contains("HorseshoesItem", 10)) {
             ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("HorseshoesItem"));
             if (itemStack.getItem() instanceof HorseshoesItem) {
-                this.items.setStack(2, itemStack);
+                this.items.setStack(getHorseshoesSlot(), itemStack);
             }
         }
     }
