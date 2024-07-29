@@ -10,7 +10,6 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -54,6 +53,8 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity implements H
             if(this.hasHorseshoes() && !entitySpeedAttributeInstance.hasModifier(Horseshoes.HORSESHOE_BOOST) && !entityArmorAttributeInstance.hasModifier(Horseshoes.HORSESHOE_ARMOR_BONUS)) {
                   int slot = getHorseshoesSlot();
                   ItemStack stack= horseshoe.getStack(slot);
+                  this.equipStack(EquipmentSlot.FEET, stack);
+                  this.setEquipmentDropChance(EquipmentSlot.FEET, 0.0F);
                   float speedBonus = ((HorseshoesItem)(stack.getItem())).getSpeedBonus();
                   float armorBonus = ((HorseshoesItem)(stack.getItem())).getArmorBonus();
                   entitySpeedAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(Horseshoes.HORSESHOE_BOOST, speedBonus, EntityAttributeModifier.Operation.ADD_VALUE));
