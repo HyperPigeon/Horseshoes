@@ -25,11 +25,11 @@ import java.util.UUID;
 
 public class Horseshoes implements ModInitializer {
 
-    private static final Identifier ALLOWED_ID = new Identifier("horseshoes:allowed_to_wear_horseshoes");
+    private static final Identifier ALLOWED_ID = Identifier.of("horseshoes","allowed_to_wear_horseshoes");
     public static final TagKey<EntityType<?>> ALLOWED = TagKey.of(RegistryKeys.ENTITY_TYPE, ALLOWED_ID);
 
-    public static final UUID HORSESHOE_BOOST_UUID = UUID.fromString("edde09bc-c052-43ed-b7ae-b6fa1bae989a");
-    public static final UUID HORSESHOE_ARMOR_BONUS_UUID = UUID.fromString("92a08c42-4405-497a-8fbf-736915bd665b");
+    public static final Identifier HORSESHOE_BOOST = Identifier.of("horseshoes", "speed_boost");
+    public static final Identifier HORSESHOE_ARMOR_BONUS = Identifier.of("horseshoes","armor_bonus");
     //    public static final EntityAttributeModifier IRON_HORSESHOE_BOOST = new EntityAttributeModifier("IRON_HORSESHOE_BOOST",0.1,
 //            EntityAttributeModifier.Operation.fromId(0));
 //    public static final EntityAttributeModifier DIAMOND_HORSESHOE_BOOST = new EntityAttributeModifier("DIAMOND_HORSESHOE_BOOST",0.15,
@@ -38,17 +38,17 @@ public class Horseshoes implements ModInitializer {
 //            EntityAttributeModifier.Operation.fromId(0));
 
     public static final HorseshoesItem DIAMOND_HORSESHOES_ITEM = new HorseshoesItem(0.15F, 5.5F, new Item.Settings().maxCount(1)
-    ,new Identifier("horseshoes", "textures/entity/horse/armor/diamond_horseshoes.png"));
+    ,Identifier.of("horseshoes", "textures/entity/horse/armor/diamond_horseshoes.png"));
     public static final HorseshoesItem IRON_HORSESHOES_ITEM = new HorseshoesItem(0.1F,3.5F,new Item.Settings().maxCount(1)
-            ,new Identifier("horseshoes", "textures/entity/horse/armor/iron_horseshoes.png"));
+            ,Identifier.of("horseshoes", "textures/entity/horse/armor/iron_horseshoes.png"));
     public static final HorseshoesItem GOLD_HORSESHOES_ITEM = new HorseshoesItem(0.2F, 2.5F, new Item.Settings().maxCount(1)
-            ,new Identifier("horseshoes", "textures/entity/horse/armor/gold_horseshoes.png"));
+            ,Identifier.of("horseshoes", "textures/entity/horse/armor/gold_horseshoes.png"));
 
     @Override
     public void onInitialize() {
-        Registry.register(Registries.ITEM,new Identifier("horseshoes", "diamond_horseshoes"), DIAMOND_HORSESHOES_ITEM);
-        Registry.register(Registries.ITEM,new Identifier("horseshoes", "iron_horseshoes"), IRON_HORSESHOES_ITEM);
-        Registry.register(Registries.ITEM,new Identifier("horseshoes", "gold_horseshoes"), GOLD_HORSESHOES_ITEM);
+        Registry.register(Registries.ITEM,Identifier.of("horseshoes", "diamond_horseshoes"), DIAMOND_HORSESHOES_ITEM);
+        Registry.register(Registries.ITEM,Identifier.of("horseshoes", "iron_horseshoes"), IRON_HORSESHOES_ITEM);
+        Registry.register(Registries.ITEM,Identifier.of("horseshoes", "gold_horseshoes"), GOLD_HORSESHOES_ITEM);
 
         ItemGroupEvents
                 .modifyEntriesEvent(ItemGroups.COMBAT)

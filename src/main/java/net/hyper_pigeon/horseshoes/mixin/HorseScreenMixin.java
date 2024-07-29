@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(HorseScreen.class)
 public abstract class HorseScreenMixin extends HandledScreen {
 
-    private static final Identifier TEXTURE = new Identifier("horseshoes","textures/gui/container/horse.png");
+    private static final Identifier TEXTURE = Identifier.of("horseshoes","textures/gui/container/horse.png");
 
     @Final
     @Shadow
@@ -35,7 +35,6 @@ public abstract class HorseScreenMixin extends HandledScreen {
         int j = (this.height - this.backgroundHeight) / 2;
 
         if(this.entity.getType().isIn(Horseshoes.ALLOWED)) {
-//            context.drawTexture(TEXTURE, i + 7, j + 53, 0, this.backgroundHeight + 54, 18, 18);
               context.drawTexture(TEXTURE, i + 7, j + 53, 54, this.backgroundHeight + 54, 18, 18);
         }
 
