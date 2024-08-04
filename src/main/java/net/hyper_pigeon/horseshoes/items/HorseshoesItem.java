@@ -1,5 +1,6 @@
 package net.hyper_pigeon.horseshoes.items;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,6 +36,10 @@ public class HorseshoesItem extends Item {
     }
 
     public Identifier getEntityTexture(){return entityTexture;}
+
+    public boolean isEnchantable(ItemStack stack) {
+        return stack.getMaxCount() == 1 && stack.contains(DataComponentTypes.MAX_DAMAGE);
+    }
 
 
 }
