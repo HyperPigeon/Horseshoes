@@ -1,0 +1,41 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license="MIT"
+
+[[mods]]
+modId="horseshoes"
+version="1.2.3"
+displayName="Horseshoes"
+authors="CyborgPigeon"
+description='''A mod that adds enchantable horseshoes to Minecraft.'''
+
+[properties]
+"connector:placeholder" = true
+
+[[dependencies.horseshoes]]
+modId = "connector"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.horseshoes]]
+modId = "neoforge"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.horseshoes]]
+modId = "minecraft"
+type = "required"
+versionRange = "[${minecraft_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.horseshoes]]
+modId = "fabric_api"
+type = "required"
+versionRange = "[${fabric_version},)"
+ordering = "NONE"
+side = "BOTH"
