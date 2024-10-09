@@ -18,32 +18,40 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractHorseEntity.class)
 public abstract class AbstractHorseEntityMixin extends AnimalEntity implements HorseshoeWearingMob, InventoryChangedListener {
+
+    @Unique
     protected SimpleInventory horseshoe = new SimpleInventory(1);
 
     protected AbstractHorseEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
 
+    @Unique
     public boolean hasHorseshoes() {
         return !horseshoe.isEmpty() && (horseshoe.getStack(getHorseshoesSlot()).getItem() instanceof HorseshoesItem);
     }
 
+    @Unique
     public int getHorseshoesSlot(){
         return 0;
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    @Inject(method = "onChestedStatusChanged", at = @At("TAIL"))
+    public void registerInventory(CallbackInfo ci) {
+        horseshoe.addListener(this);
+    }
+
+    @Inject(method = "onInventoryChanged", at = @At("TAIL"))
     public void handleHorseshoes(CallbackInfo ci){
         applyHorseshoesBonus();
     }
-
-
 
     public void applyHorseshoesBonus() {
         boolean bl = this.hasHorseshoes();
