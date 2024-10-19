@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="horseshoes"
-version="1.2.3"
+version="1.2.4"
 displayName="Horseshoes"
 authors="CyborgPigeon"
 description='''A mod that adds enchantable horseshoes to Minecraft.'''
