@@ -1,6 +1,8 @@
 # Horseshoes
 
-A mod that adds equippable, enchantable horseshoes that speed up your mount! A fork of the mod, tailored for The Pond SMP.
+A mod that adds equippable, enchantable horseshoes that speed up your mount! A fork of the original Horseshoes mod, tailored for The Pond SMP.
+
+All credit goes to HyperPigeon, who made the original Horseshoes mod.
 
 ## Iron Horseshoes:
    increases speed by **2 blocks per second** and provides  **1.75 bars of armor**.
