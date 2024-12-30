@@ -1,20 +1,13 @@
 # Horseshoes
 
-A mod that adds equippable, enchantable horseshoes that speed up your mount! 
+A mod that adds equippable, enchantable horseshoes that speed up your mount! A fork of the mod, tailored for The Pond SMP.
 
-## Horseshoe Types
-
-There are **three** types of horseshoes: iron, gold, and diamond.
-
-![Iron, golden, and diamond horseshoes](https://cdn.modrinth.com/data/cached_images/485e42cc32f4045fdc04e902c9803c329998ec81.png)
-
-1. Iron Horseshoes: increases speed by **2 blocks per second** and provides  **1.75 bars of armor**.
-2. Golden Horseshoes: increases speed by **4 blocks per second** and provides **1.25 bars of armor**. 
-3. Diamond Horseshoes: increases speed by **3 blocks per second** and provides **2.75 bars of armor**.
+## Iron Horseshoes:
+   increases speed by **2 blocks per second** and provides  **1.75 bars of armor**.
 
 ## Obtaining horseshoes
 
-You can acquire iron and diamond horseshoes by trading with armorsmith villagers or by looting chests in the Overworld. Golden horseshoes can be found in chests inside Nether fortresses and bastions. 
+You can acquire iron Horseshoes by trading with armorsmith villagers or by looting chests in the Overworld. 
 
 ## Enchanting
 
