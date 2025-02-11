@@ -48,9 +48,10 @@ public class Horseshoes implements ModInitializer {
 
         ModItems.registerModItems();
 
-        System.out.println("iron horseshoe stats:" + IRON_HORSESHOES_ITEM.getArmorBonus() + ", " + IRON_HORSESHOES_ITEM.getSpeedBonus() + "; target values in config: " + ModConfigs.IRON_HORSESHOE_ARMOR + ", " + ModConfigs.IRON_HORSESHOE_SPEED);
-        System.out.println("gold horseshoe stats:" + GOLD_HORSESHOES_ITEM.getArmorBonus() + ", " + GOLD_HORSESHOES_ITEM.getSpeedBonus() + "; target values in config: " + ModConfigs.GOLD_HORSESHOE_ARMOR + ", " + ModConfigs.GOLD_HORSESHOE_SPEED);
-        System.out.println("diamond horseshoe stats:" + DIAMOND_HORSESHOES_ITEM.getArmorBonus() + ", " + DIAMOND_HORSESHOES_ITEM.getSpeedBonus() + "; target values in config: " + ModConfigs.DIAMOND_HORSESHOE_ARMOR + ", " + ModConfigs.DIAMOND_HORSESHOE_SPEED);
+        //For debugging purposes
+        //System.out.println("iron horseshoe stats:" + IRON_HORSESHOES_ITEM.getArmorBonus() + ", " + IRON_HORSESHOES_ITEM.getSpeedBonus() + "; target values in config: " + ModConfigs.IRON_HORSESHOE_ARMOR + ", " + ModConfigs.IRON_HORSESHOE_SPEED);
+        //System.out.println("gold horseshoe stats:" + GOLD_HORSESHOES_ITEM.getArmorBonus() + ", " + GOLD_HORSESHOES_ITEM.getSpeedBonus() + "; target values in config: " + ModConfigs.GOLD_HORSESHOE_ARMOR + ", " + ModConfigs.GOLD_HORSESHOE_SPEED);
+        //System.out.println("diamond horseshoe stats:" + DIAMOND_HORSESHOES_ITEM.getArmorBonus() + ", " + DIAMOND_HORSESHOES_ITEM.getSpeedBonus() + "; target values in config: " + ModConfigs.DIAMOND_HORSESHOE_ARMOR + ", " + ModConfigs.DIAMOND_HORSESHOE_SPEED);
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.ARMORER,
                 2,
