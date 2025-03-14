@@ -58,6 +58,8 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity implements H
         EntityAttributeInstance entitySpeedAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         EntityAttributeInstance entityArmorAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR);
         if(!this.getWorld().isClient()) {
+            entitySpeedAttributeInstance.removeModifier(Horseshoes.HORSESHOE_BOOST);
+            entityArmorAttributeInstance.removeModifier(Horseshoes.HORSESHOE_ARMOR_BONUS);
             if(this.hasHorseshoes() && !entitySpeedAttributeInstance.hasModifier(Horseshoes.HORSESHOE_BOOST) && !entityArmorAttributeInstance.hasModifier(Horseshoes.HORSESHOE_ARMOR_BONUS)) {
                   int slot = getHorseshoesSlot();
                   ItemStack stack= horseshoe.getStack(slot);
@@ -70,10 +72,6 @@ public abstract class AbstractHorseEntityMixin extends AnimalEntity implements H
                 if (this.age > 20 && !bl) {
                     this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
                 }
-            }
-            else {
-                entitySpeedAttributeInstance.removeModifier(Horseshoes.HORSESHOE_BOOST);
-                entityArmorAttributeInstance.removeModifier(Horseshoes.HORSESHOE_ARMOR_BONUS);
             }
         }
 

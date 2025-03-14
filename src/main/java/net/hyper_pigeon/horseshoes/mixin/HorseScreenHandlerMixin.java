@@ -74,9 +74,15 @@ public abstract class HorseScreenHandlerMixin extends ScreenHandler {
                     cir.setReturnValue(ItemStack.EMPTY);
                 } else {
                     cir.setReturnValue(itemStack);
+                    if (itemStack2.isEmpty()) {
+                        slot2.setStack(ItemStack.EMPTY);
+                    } else {
+                        slot2.markDirty();
+                    }
                 }
                 cir.cancel();
-            } else if (this.getSlot(38).canInsert(itemStack2) && !this.getSlot(38).hasStack()) {
+            }
+            else if (this.getSlot(38).canInsert(itemStack2) && !this.getSlot(38).hasStack()) {
                 if (!this.insertItem(itemStack2, 38, 39, false)) {
                     cir.setReturnValue(ItemStack.EMPTY);
                 } else {
