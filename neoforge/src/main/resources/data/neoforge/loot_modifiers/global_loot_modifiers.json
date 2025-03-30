@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "entries": [
+    "horseshoes:nether_bridge",
+    "horseshoes:bastion_bridge",
+    "horseshoes:bastion_hoglin_stable",
+    "horseshoes:bastion_other",
+    "horseshoes:bastion_treasure",
+  ]
+}

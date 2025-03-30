@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.hyper_pigeon.horseshoes.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+    "AbstractHorseEntityMixin",
+    "HorseScreenHandlerMixin",
+    "ServerPlayNetworkHandlerMixin"
+  ],
+  "client": [
+    "HorseScreenMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+

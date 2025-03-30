@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "horseshoes:diamond_horseshoes",
+          "weight": 2
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
