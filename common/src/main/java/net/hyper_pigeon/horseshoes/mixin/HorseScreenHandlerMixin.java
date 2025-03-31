@@ -36,7 +36,7 @@ public abstract class HorseScreenHandlerMixin extends AbstractContainerMenu {
 
         HorseshoeWearingMob horseshoeWearingMob = (HorseshoeWearingMob) entity;
         this.horseshoeInventory = horseshoeWearingMob.getInventory();
-        this.addSlot(new ArmorSlot(horseshoeWearingMob.getInventory(), entity, EquipmentSlot.FEET, slot, 8, 52, (ResourceLocation) null) {
+        this.addSlot(new ArmorSlot(horseshoeWearingMob.getInventory(), entity, EquipmentSlot.FEET, slot, 8, 51, (ResourceLocation) null) {
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof HorseshoesItem && !this.hasItem() && entity.getType().is(Constants.ALLOWED);
             }
