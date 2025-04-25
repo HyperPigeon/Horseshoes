@@ -37,7 +37,7 @@ public abstract class HorseScreenMixin extends AbstractContainerScreen {
         int j = (this.height - this.imageHeight) / 2;
 
         if(this.horse.getType().is(Constants.ALLOWED)) {
-              context.blit(TEXTURE, i + 7, j + 51, 54, this.imageHeight + 54, 18, 18);
+              context.blit(TEXTURE, i + 7, j + 53, 54, this.imageHeight + 54, 18, 18);
         }
 
     }
