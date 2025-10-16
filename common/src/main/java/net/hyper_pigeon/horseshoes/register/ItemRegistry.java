@@ -13,6 +13,8 @@ import java.util.function.Supplier;
 
 public final class ItemRegistry {
 
+    public static final Supplier <HorseshoesItem> NETHERITE_HORSESHOES_ITEM = registerItem("netherite_horseshoes", () -> new HorseshoesItem(0.25F, 6.5F, new Item.Properties().stacksTo(1)
+            , ResourceLocation.fromNamespaceAndPath("horseshoes", "textures/entity/horse/armor/netherite_horseshoes.png")));
     public static final Supplier <HorseshoesItem> DIAMOND_HORSESHOES_ITEM = registerItem("diamond_horseshoes", () -> new HorseshoesItem(0.15F, 5.5F, new Item.Properties().stacksTo(1)
             , ResourceLocation.fromNamespaceAndPath("horseshoes", "textures/entity/horse/armor/diamond_horseshoes.png")));
     public static final Supplier <HorseshoesItem> IRON_HORSESHOES_ITEM = registerItem("iron_horseshoes", () -> new HorseshoesItem(0.1F,3.5F,new Item.Properties().stacksTo(1)
@@ -27,6 +29,7 @@ public final class ItemRegistry {
                 entries.accept(IRON_HORSESHOES_ITEM.get());
                 entries.accept(GOLD_HORSESHOES_ITEM.get());
                 entries.accept(DIAMOND_HORSESHOES_ITEM.get());
+                entries.accept(NETHERITE_HORSESHOES_ITEM.get());
             })
             .build());
 
