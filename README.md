@@ -1,4 +1,4 @@
-# Horseshoes - A fork of the mod by HyperPigeon adding netherite horseshoes
+# Horseshoes
 
 A mod that adds equippable, enchantable horseshoes that speed up your mount!
 
