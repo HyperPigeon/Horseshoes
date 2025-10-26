@@ -1,20 +1,20 @@
-# Horseshoes
+# Horseshoes - A fork of the mod by HyperPigeon adding netherite horseshoes
 
 A mod that adds equippable, enchantable horseshoes that speed up your mount!
 
 ## Horseshoe Types
 
-There are **three** types of horseshoes: iron, gold, and diamond.
+There are **four** types of horseshoes: iron, gold, diamond and netherite.
 
-![Iron, golden, and diamond horseshoes](https://cdn.modrinth.com/data/cached_images/485e42cc32f4045fdc04e902c9803c329998ec81.png)
 
 1. Iron Horseshoes: increases speed by **2 blocks per second** and provides  **1.75 bars of armor**.
 2. Golden Horseshoes: increases speed by **4 blocks per second** and provides **1.25 bars of armor**.
 3. Diamond Horseshoes: increases speed by **3 blocks per second** and provides **2.75 bars of armor**.
+3. Netherite Horseshoes: increases speed by **5 blocks per second** and provides **3 bars of armor**.
 
 ## Obtaining horseshoes
 
-You can acquire iron and diamond horseshoes by trading with armorsmith villagers or by looting chests in the Overworld. Golden horseshoes can be found in chests inside Nether fortresses and bastions.
+You can acquire iron and diamond horseshoes by trading with armorsmith villagers or by looting chests in the Overworld. Golden horseshoes can be found in chests inside Nether fortresses and bastions. Netherite horseshoes are obtained by upgrading a diamond horseshoe in a smithing table.
 
 ## Enchanting
 

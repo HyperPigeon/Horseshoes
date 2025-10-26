@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "horseshoes:diamond_horseshoes"
+  },
+  "result": {
+    "count": 1,
+    "id": "horseshoes:netherite_horseshoes"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

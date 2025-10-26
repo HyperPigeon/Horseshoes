@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "horseshoes:netherite_horseshoes",
     "horseshoes:diamond_horseshoes",
     "horseshoes:gold_horseshoes",
     "horseshoes:iron_horseshoes"
