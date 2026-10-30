@@ -13,6 +13,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RunAroundLikeCrazyGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.ItemStack;
@@ -57,24 +59,29 @@ public abstract class AbstractHorseEntityMixin extends Animal implements Horsesh
         boolean bl = this.hasHorseshoes();
         AttributeInstance entitySpeedAttributeInstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
         AttributeInstance entityArmorAttributeInstance = this.getAttribute(Attributes.ARMOR);
-        if(!this.level().isClientSide()) {
-            entitySpeedAttributeInstance.removeModifier(Constants.HORSESHOE_BOOST);
-            entityArmorAttributeInstance.removeModifier(Constants.HORSESHOE_ARMOR_BONUS);
-            if(this.hasHorseshoes() && !entitySpeedAttributeInstance.hasModifier(Constants.HORSESHOE_BOOST) && !entityArmorAttributeInstance.hasModifier(Constants.HORSESHOE_ARMOR_BONUS)) {
-                  int slot = getHorseshoesSlot();
-                  ItemStack stack= horseshoe.getItem(slot);
-                  this.setItemSlot(EquipmentSlot.FEET, stack);
-                  this.setDropChance(EquipmentSlot.FEET, 0.0F);
-                  float speedBonus = ((HorseshoesItem)(stack.getItem())).getSpeedBonus();
-                  float armorBonus = ((HorseshoesItem)(stack.getItem())).getArmorBonus();
-                  entitySpeedAttributeInstance.addTransientModifier(new AttributeModifier(Constants.HORSESHOE_BOOST, speedBonus, AttributeModifier.Operation.ADD_VALUE));
-                  entityArmorAttributeInstance.addTransientModifier(new AttributeModifier(Constants.HORSESHOE_ARMOR_BONUS, armorBonus, AttributeModifier.Operation.ADD_VALUE));
-                if (this.tickCount > 20 && !bl) {
-                    this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
-                }
+        if (this.level().isClientSide()) return;
+
+        entitySpeedAttributeInstance.removeModifier(Constants.HORSESHOE_BOOST);
+        entityArmorAttributeInstance.removeModifier(Constants.HORSESHOE_ARMOR_BONUS);
+
+        goalSelector.removeAllGoals((_g) -> true);
+        registerGoals();
+
+        if (this.hasHorseshoes() && !entitySpeedAttributeInstance.hasModifier(Constants.HORSESHOE_BOOST) && !entityArmorAttributeInstance.hasModifier(Constants.HORSESHOE_ARMOR_BONUS)) {
+            goalSelector.removeAllGoals(goal -> goal instanceof WaterAvoidingRandomStrollGoal || goal instanceof RunAroundLikeCrazyGoal);
+
+            int slot = getHorseshoesSlot();
+            ItemStack stack = horseshoe.getItem(slot);
+            this.setItemSlot(EquipmentSlot.FEET, stack);
+            this.setDropChance(EquipmentSlot.FEET, 0.0F);
+            float speedBonus = ((HorseshoesItem)(stack.getItem())).getSpeedBonus();
+            float armorBonus = ((HorseshoesItem)(stack.getItem())).getArmorBonus();
+            entitySpeedAttributeInstance.addTransientModifier(new AttributeModifier(Constants.HORSESHOE_BOOST, speedBonus, AttributeModifier.Operation.ADD_VALUE));
+            entityArmorAttributeInstance.addTransientModifier(new AttributeModifier(Constants.HORSESHOE_ARMOR_BONUS, armorBonus, AttributeModifier.Operation.ADD_VALUE));
+            if (this.tickCount > 20 && !bl) {
+                this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
             }
         }
-
     }
 
 
@@ -87,11 +94,13 @@ public abstract class AbstractHorseEntityMixin extends Animal implements Horsesh
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     protected void readHorseshoesFromNbt(CompoundTag nbt, CallbackInfo ci){
+        if (level().isClientSide) return;
         if (nbt.contains("HorseshoesItem", 10)) {
             ItemStack itemStack = ItemStack.CODEC.parse(getServer().registryAccess().createSerializationContext(NbtOps.INSTANCE), nbt.getCompound("HorseshoesItem")).getPartialOrThrow();
             if (itemStack.getItem() instanceof HorseshoesItem) {
                 this.horseshoe.setItem(getHorseshoesSlot(), itemStack);
             }
+            applyHorseshoesBonus();
         }
     }
 
