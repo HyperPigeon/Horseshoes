@@ -87,6 +87,7 @@ public abstract class AbstractHorseEntityMixin extends Animal implements Horsesh
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     protected void readHorseshoesFromNbt(CompoundTag nbt, CallbackInfo ci){
+        if (level().isClientSide) return;
         if (nbt.contains("HorseshoesItem", 10)) {
             ItemStack itemStack = ItemStack.CODEC.parse(getServer().registryAccess().createSerializationContext(NbtOps.INSTANCE), nbt.getCompound("HorseshoesItem")).getPartialOrThrow();
             if (itemStack.getItem() instanceof HorseshoesItem) {
