@@ -81,14 +81,14 @@ public abstract class AbstractHorseEntityMixin extends Animal implements Horsesh
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     protected void writeHorseshoesToNbt(CompoundTag nbt, CallbackInfo ci){
         if (this.hasHorseshoes() && !this.horseshoe.getItem(getHorseshoesSlot()).isEmpty()) {
-            nbt.put("HorseshoesItem", ItemStack.CODEC.encodeStart(getServer().registryAccess().createSerializationContext(NbtOps.INSTANCE),this.horseshoe.getItem(getHorseshoesSlot())).getPartialOrThrow());
+            nbt.put("HorseshoesItem", ItemStack.CODEC.encodeStart(this.level().registryAccess().createSerializationContext(NbtOps.INSTANCE),this.horseshoe.getItem(getHorseshoesSlot())).getPartialOrThrow());
         }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     protected void readHorseshoesFromNbt(CompoundTag nbt, CallbackInfo ci){
         if (nbt.contains("HorseshoesItem", 10)) {
-            ItemStack itemStack = ItemStack.CODEC.parse(getServer().registryAccess().createSerializationContext(NbtOps.INSTANCE), nbt.getCompound("HorseshoesItem")).getPartialOrThrow();
+            ItemStack itemStack = ItemStack.CODEC.parse(this.level().registryAccess().createSerializationContext(NbtOps.INSTANCE), nbt.getCompound("HorseshoesItem")).getPartialOrThrow();
             if (itemStack.getItem() instanceof HorseshoesItem) {
                 this.horseshoe.setItem(getHorseshoesSlot(), itemStack);
             }
